@@ -12,7 +12,7 @@ Module Found in Treatlife SS02S Single Pole Wall Switch
 
 ![pinout](img/cb3s-v200.png)
 
-**Draft**
+## Caution: Draft
 
 References:
   - [BK7238 datasheet](https://datasheet4u.com/pdf/1563396/BK7238.pdf)
