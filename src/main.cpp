@@ -1,27 +1,45 @@
 /*
- *  See blink_leds.ino for license and attribution.
+ * Copyright 2026, Michel Deslierres. No rights reserved, this code is in the public domain.
+ * In those jurisdictions where this may be a problem, the BSD Zero Clause License applies.
+ * <https://spdx.org/licenses/0BSD.html>
  */
+// SPDX-License-Identifier: 0BSD
 
 #include <Arduino.h>
 
-#define MySerial Serial1
-
 //-----------------------------------/
 //
-// User defined paramaters
-
-
+// User defined parameters
+//
 #define TOGGLE_TIME 30000 // time in milliseconds that a GPIO pin is toggled ON and OFF
-
+//
 #define LOW_TIME   100    // time in milliseconds the GPIO pin is set LOW when toggling it
-
+//
 #define HIGH_TIME  200    // time in milliseconds the GPIO pin is set HIGH when toggling it
-
+//
 #define TEST_DELAY  5000  // time in milliseconds between tests
-
+//
+#define MySerial Serial1  // which hardware UART (Serial1 or Serial2) is used. Serial2 is the default logger.
+//
 //----------------------------------/
 
+// The generic-bk7238.h file contains the pin assignements for the ports
+//
+// #define PIN_SERIAL1_RX  10u // GPIO10
+// #define PIN_SERIAL1_TX  11u // GPIO11
+// #define PIN_SERIAL2_RX  1u  // GPIO1
+// #define PIN_SERIAL2_TX  0u  // GPIO0
+
+
 /// ---- board pad labels and io pin assignement ---- ////
+
+// pads will be examined in phyical order:
+//  down the left edge, across the bottom edge and up the right edge
+
+const int padCount = 22;  
+const int pads[padCount] = {1, 2, 3, 4, 5, 6, 7, 8,          // left edge
+                            17, 18, 19, 20, 21, 22,          // bottom edge
+                            9, 10, 11, 12, 13, 14, 15, 16};  // right edge
 
 // Non GPIO pads
 
@@ -30,30 +48,16 @@
 #define GND -3
 #define CEN -4
 #define RST -5
-#define RX  -6
-#define TX  -7
 
-
-const int padCount = 22;  
-const int pads[padCount] = {1, 2, 3, 4, 5, 6, 7, 8,         // left edge
-                            17, 18, 19, 20, 21, 22,          // bottom edge
-                            9, 10, 11, 12, 13, 14, 15, 16};  // right edge
-
-const int gpios[padCount] = {RST, 20, CEN, 22, 6, 8, 9, VCC,         // left edge
+const int gpios[padCount] = {RST, 20, CEN, 22, 6, 8, 9, VCC,    // left edge
                              17, 16, 15, 14, 7, NC,             // bottom edge
-                             GND, 23, 0, 1, 24, 26, 10, 11};         // right edge
+                             GND, 23, 0, 1, 24, 26, 10, 11};    // right edge
 
 const int untestedCount = 2;
 const int untested[untestedCount] = {PIN_P21, PIN_P28}; // one of these is definitely not used
 
 void printPin(int index) {
   switch (gpios[index]) {
-    case TX:
-      MySerial.print("GPIO 11 (TX1)");
-      break;
-    case RX:
-      MySerial.print("GPIO 10 (RX1)");
-      break;
     case RST:
       MySerial.print("RST");
       break;  
@@ -135,12 +139,9 @@ void testPad(int pad) {
   delay(TEST_DELAY);
 }
 
-
 void setup() {
   MySerial.begin(115200); 
   delay(5000);
-
-  Serial2.end(); // stop TX2 - loggin ?
 
   MySerial.println("\n\nProject: gpios");
 
@@ -156,10 +157,13 @@ void setup() {
   MySerial.print(  "  Board: ");
   MySerial.println(LT.getBoard());
   MySerial.println("\n");
-  
+
+  Serial2.end(); // stop log output on TX2
+
   showAll();
   delay(5000);
-  MySerial.println("Test starting");  
+
+  MySerial.println("Confirmation test starting");  
 }
 
 int padindex = 0;
@@ -168,7 +172,8 @@ void loop() {
   testPad(padindex);
   padindex++;
   if (padindex >= padCount) {
-    MySerial.println("\nTest completed, restarting.\n\n");
+    MySerial.println("\nConfirmation test completed.");
+    MySerial.println("Restarting.\n");
     padindex = 0;
   }
 };
