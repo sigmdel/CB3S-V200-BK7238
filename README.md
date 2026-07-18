@@ -61,6 +61,6 @@ When flashing the BK7238 *in situ* on the `SS02_LED Board_v1.1` of the Wi-Fi swi
 
 That is because shorting the CEN pin, which amounts to pressing the K1 push-button restart switch, will also short the 3.3 volts and ground rails of the board.
 
-![](img/restart_circuit.png)
+![](img/restart_circuit.jpg)
 
 In turn, that will short the 3.3V and GND connections of the serial-USB adapter and most likely disabling it. The solution is to power the `LED board` with an independent 3.3 volt supply (psu). Do not forget to connect the psu ground to the `LED board` and the serial-USB adapter grounds and to remove the 3.3 volt connection between the `LED board` and the serial-USB adapter.
