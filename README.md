@@ -42,7 +42,7 @@ It would not be practical to include in the diagram all the macros and static va
 | 15 | 10 | PIN_SERIAL1_RX | PIN_RX1, PIN_P10 | PIN_D6 | D6 |
 | 12 | 1 | PIN_SERIAL2_RX | PIN_RX2, PIN_P1 | PIN_D1 | D1 |
 | 11 | 0 | PIN_SERIAL2_TX | PIN_TX2, PIN_P0 | PIN_D0 | D0 |
-|  
+  
 
 **Analog Inputs**:
 | PAD | GPIO | Function macro | Arduino macro | Arduino static var |

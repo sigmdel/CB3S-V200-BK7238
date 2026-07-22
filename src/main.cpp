@@ -12,11 +12,11 @@
 //
 #define TOGGLE_TIME 30000 // time in milliseconds that a GPIO pin is toggled ON and OFF
 //
-#define LOW_TIME   100    // time in milliseconds the GPIO pin is set LOW when toggling it
+#define LOW_TIME      100 // time in milliseconds the GPIO pin is set LOW when toggling it
 //
-#define HIGH_TIME  200    // time in milliseconds the GPIO pin is set HIGH when toggling it
+#define HIGH_TIME     200 // time in milliseconds the GPIO pin is set HIGH when toggling it
 //
-#define TEST_DELAY  5000  // time in milliseconds between tests
+#define TEST_DELAY   5000 // time in milliseconds between tests
 //
 //----------------------------------/
 
