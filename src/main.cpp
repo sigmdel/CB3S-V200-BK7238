@@ -8,7 +8,6 @@
 #include <Arduino.h>
 
 //-----------------------------------/
-//
 // User defined parameters
 //
 #define TOGGLE_TIME 30000 // time in milliseconds that a GPIO pin is toggled ON and OFF
@@ -19,17 +18,12 @@
 //
 #define TEST_DELAY  5000  // time in milliseconds between tests
 //
-#define MySerial Serial1  // which hardware UART (Serial1 or Serial2) is used. Serial2 is the default logger.
-//
 //----------------------------------/
 
-// The generic-bk7238.h file contains the pin assignements for the ports
+// The serial connection to the module must use Serial1 which uses PIN_RX1, PIN_TX1 (module pads 15 and 16)
+// Serial2 (PIN_TX2 - module pad 11) which is normally used for logging is disabled.
 //
-// #define PIN_SERIAL1_RX  10u // GPIO10
-// #define PIN_SERIAL1_TX  11u // GPIO11
-// #define PIN_SERIAL2_RX  1u  // GPIO1
-// #define PIN_SERIAL2_TX  0u  // GPIO0
-
+#define MySerial Serial1  
 
 /// ---- board pad labels and io pin assignement ---- ////
 
@@ -42,7 +36,7 @@ const int pads[padCount] = {1, 2, 3, 4, 5, 6, 7, 8,          // left edge
                             9, 10, 11, 12, 13, 14, 15, 16};  // right edge
 
 // Non GPIO pads
-
+//
 #define NC  -1
 #define VCC -2
 #define GND -3
